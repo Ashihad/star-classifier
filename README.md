@@ -1,4 +1,4 @@
-# Star classifier
+# Stellar classifier
 
 ## Setup
 Creating virtual environment for Python is recommended.
