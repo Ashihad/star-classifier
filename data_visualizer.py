@@ -2,22 +2,11 @@ import os
 import pandas as pd
 import matplotlib.pyplot as plt
 
-def get_root_dir():
-    script_dir = os.path.dirname(os.path.abspath(__file__))
-    src_index = script_dir.find('/src')
-    root_dir = script_dir[:src_index]
-    return root_dir
+import os
 
-def get_common_paths():
-    root_dir = get_root_dir()
-    data_path = os.path.join(root_dir, "data/star_classification.csv")
-    hist_dir_path = os.path.join(root_dir, "results/histograms")
-    
-    # make sure destination dirs exist
-    os.makedirs(hist_dir_path, exist_ok=True)
-    
-    return {'data_path': data_path,
-            'hist_dir_path': hist_dir_path}
+from src.utilities import get_common_paths
+
+logger = logging.getLogger("main")
 
 def prepare_histogram_data():
     paths = get_common_paths()
