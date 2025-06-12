@@ -55,8 +55,19 @@ class StellarClassifierBase(ABC):
     """Prepare and preprocess the data"""
     self.logger.info("Preparing data...")
 
+    # manual dataset balancing
+    if not self.smote:
+      smallest_class_count = df["class"].value_counts().min()
+      df = df.groupby("class", group_keys=False).apply(lambda x: x.sample(n=smallest_class_count))
+
     X = df[self.feature_columns].values
     y = df['class'].values
+
+    # balancing dataset via syntethic samples
+    if self.smote:
+      from imblearn.over_sampling import SMOTE
+      smote = SMOTE()
+      X, y = smote.fit_resample(X, y)
     
     # encode labels
     y_encoded = self.label_encoder.fit_transform(y)
@@ -197,8 +208,9 @@ class StellarClassifierBase(ABC):
     self.logger.info("Plotting confusion matrix...")
 
     cm = confusion_matrix(y_true, y_pred)
+    cm_normalized = cm.astype('float') / cm.sum(axis=1)[:, np.newaxis]
     plt.figure(figsize=(8, 6))
-    sns.heatmap(cm/np.sum(cm), annot=True, fmt='.2%', cmap='Blues',
+    sns.heatmap(cm_normalized, annot=True, fmt='.2%', cmap='Blues',
                 xticklabels=self.label_encoder.classes_,
                 yticklabels=self.label_encoder.classes_)
     plt.title('Confusion Matrix')

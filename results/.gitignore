@@ -1,3 +1,5 @@
 default/
 histograms/
 logreg/
+nn/
+knn/
