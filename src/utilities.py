@@ -22,13 +22,19 @@ def get_common_paths():
     hist_dir_path = os.path.join(root_dir, "results/histograms")
     default_dir_path = os.path.join(root_dir, "results/default")
     logreg_dir_path = os.path.join(root_dir, "results/logreg")
+    nn_dir_path = os.path.join(root_dir, "results/nn")
+    knn_dir_path = os.path.join(root_dir, "results/knn")
     
     # make sure destination dirs exist
     os.makedirs(hist_dir_path, exist_ok=True)
     os.makedirs(default_dir_path, exist_ok=True)
     os.makedirs(logreg_dir_path, exist_ok=True)
+    os.makedirs(nn_dir_path, exist_ok=True)
+    os.makedirs(knn_dir_path, exist_ok=True)
     
     return {'data_path': data_path,
             'hist_dir_path': hist_dir_path,
             'default_dir_path': default_dir_path,
-            'logreg_dir_path': logreg_dir_path}
+            'logreg_dir_path': logreg_dir_path,
+            'nn_dir_path': nn_dir_path,
+            'knn_dir_path': knn_dir_path}
