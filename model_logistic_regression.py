@@ -23,7 +23,8 @@ class StellarClassifierLogReg(StellarClassifierBase):
     super(StellarClassifierLogReg, self).__init__()
     self.batch_size = 32
     self.learning_rate = 0.01
-    self.num_epochs = 1000
+    self.num_epochs = 200
+    self.smote = True
     self.feature_columns = ['u', 'g', 'r', 'i', 'z', 'redshift']
     self.output_dir = paths['logreg_dir_path']
 
